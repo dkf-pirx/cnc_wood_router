@@ -1,0 +1,44 @@
+From http://michael-rushanan.blogspot.de/2013/07/ubuntu-1304-my-experience-with-mspdebug.html
+     http://dlbeer.co.nz/mspdebug/tilib.html
+
+apt-get install msp430-libc binutils-msp430 gcc-msp430 msp430mcu gdb-msp430
+
+---> common
+# Yes, git needs to be installed. sudo apt-get install git.
+git clone git://git.code.sf.net/p/mspdebug/code mspdebug
+# Lets just assume that GNU readline will be useful to you someday.
+apt-get install libusb-dev libreadline-dev
+cd mspdebug
+make
+# It will install to /usr/local/bin with includes and man pages.
+make install
+
+This part worked as far but the connection to the FET device were unsuccessful. (next I followed the msp430.dll v3)
+
+---> for msp430.dll v2
+# If you don't want to use sudo, add yourself to the dialout group.
+# For whatever strange reason, mspdebug tilib -j -d /dev/ttyACM0 didn't work for me.
+mspdebug tilib
+
+---> for msp430.dll v3
+# This compressed folder contains the MSP_DebugStack_OS_Package.
+wget http://www-s.ti.com/sc/techzip/slac460.zip
+
+(this did not work, I downloaded from the web and used version n: slac460n.zip)
+
+-> go into MSP_DebugStack_OS_Package and read the README-BUILD.txt, section for Linux.
+From it you will learn that you additionally libboost and hidapi. 
+ 
+# libboost is easy, just type:
+sudo apt-get install libboost-dev libboost-filesystem-dev libboost-system-dev libboost-thread-dev libboost-date-time-dev
+ 
+# hidapi 
+# check section 2.2, download archive of release from https://github.com/signal11/hidapi/releases
+# go into main project directory and read README.txt, section "Building HIDAPI into a shared library on Unix Platforms"
+# hid-libusb.o does not exist under this name, rename/use ./linux/hid.o
+
+# now you can build the mspdebug
+# check the description under http://dlbeer.co.nz/mspdebug/tilib.html 
+make STATIC=1 BIT32=1
+
+

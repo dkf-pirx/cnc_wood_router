@@ -1,0 +1,51 @@
+From http://www.instructables.com/id/Getting-started-with-TIs-MSP430-gcc-and-the-MSP430/
+
+Get:
+msp430-gcc-source.tar.bz2
+msp430-support-files.zip
+
+tar xvf msp430-gcc-source.tar.bz2
+
+
+apt-get install texinfo expect libx11-dev g++ flex bison libncurses5-dev
+
+mkdir /opt/msp430-toolchain mkdir build cd build
+
+export PREFIX=/opt/msp430-toolchain
+
+export TARGET=msp430-none-elf
+
+export PATH=$PREFIX/bin:$PATH
+
+../sources/tools/configure --target=$TARGET --prefix="$PREFIX" --program-prefix=msp430- --enable-languages=c --disable-nls 
+
+make all
+
+make install
+
+
+unzip msp430-support-files.zip
+
+chmod -R 755 *
+
+sudo cp *.ld $PREFIX/msp430-none-elf/lib/430/
+
+sudo cp *.h $PREFIX/msp430-none-elf/include
+
+--------
+Optional:
+
+cd
+
+git clone https://github.com/simplyembedded/msp430_launchpad.git
+
+git checkout -b lesson_3_devel lesson_3
+
+
+/opt/msp430-toolchain/bin/msp430-gcc -mmcu=msp430g2553 main.c
+
+sudo apt-get install mspdebug
+
+mspdebug rf2500
+
+prog a.out

@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="MSP430_V3%20firmware_files/style.css">
+  <link href="MSP430_V3%20firmware_files/css_002.css" rel="stylesheet" type="text/css">
+  <link href="MSP430_V3%20firmware_files/css.css" rel="stylesheet" type="text/css">
+  <title>MSP430/V3 firmware</title>
+<script src="MSP430_V3%20firmware_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21650998-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+<div id="top">
+<img id="logo" src="MSP430_V3%20firmware_files/logo.png" alt="D.L. Beer Engineering Ltd">
+<div id="navigation">
+<a href="http://dlbeer.co.nz/index.html">Home</a> |
+<a href="http://dlbeer.co.nz/projects.html">Projects</a> |
+<a href="http://dlbeer.co.nz/blog.html">Blog</a>
+<a href="http://dlbeer.co.nz/feed.atom"><img src="MSP430_V3%20firmware_files/feed_icon.png" alt="Atom feed"></a> |
+<a href="http://dlbeer.co.nz/about.html">Contact</a>
+<br>
+dlbeer@gmail.com
+(<a href="http://dlbeer.co.nz/pgp-dlbeer.txt">PGP key</a>)
+</div>
+</div>
+<div id="content">
+<h1 id="msp430v3-firmware">MSP430/V3 firmware</h1>
+<p>This page exists to provide information on using the new TI open 
+source MSP430.DLL library with MSPDebug. It's split into two sections:</p>
+<ul>
+<li><a href="#patch_460f">slac460f/g/h Linux patches</a></li>
+<li><a href="#patch_460a">slac460a Linux patches (obsolete)</a></li>
+<li><a href="#fet_firmware">V3 FET firmware upgrade/downgrade</a></li>
+</ul>
+<a name="patch_460f"></a>
+<h2 id="slac460fgh-linux-patches">slac460f/g/h Linux patches</h2>
+<p>Release F of MSP430.DLL adds a new library as a dependency (hidapi), 
+which is not packaged on most distributions. When building on Windows, a
+ batch file called <code>install_thirdparty.bat</code> fetches and builds the library.</p>
+<p>The following patches, from Tamas Tevesz, adds an 
+install_thirdparty.sh to the same effect as well as fixes build issues 
+on Linux and other Unix-like systems:</p>
+<ul>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460f_unix.diff">slac460f_unix.diff</a></li>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460g_unix.diff">slac460g_unix.diff</a></li>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460h_unix.diff">slac460h_unix.diff</a></li>
+</ul>
+<p>A patch for release L has been provided by Alexei Colin:</p>
+<ul>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460l_unix.diff">slac460l_unix.diff</a></li>
+</ul>
+<p>This has been tested on Ubuntu 12.04 x86_64. Please ensure that you 
+have the following dependencies installed before attempting to build 
+(Debian/Ubuntu package names given below):</p>
+<ul>
+<li>libtool</li>
+<li>libudev-dev</li>
+<li>libusb-1.0-0-dev</li>
+<li>libboost-system1.48-dev</li>
+<li>libboost-filesystem1.48-dev</li>
+</ul>
+<h3 id="chipinfo.db">chipinfo.db</h3>
+<p>The file <code>chipinfo.db</code>, now included in MSPDebug, is generated from MSP430.DLL. The following patch adds rules for creating a binary called <code>dumpdb</code> which produces <code>chipinfo.db</code> as its output:</p>
+<ul>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460f-dumpdb.patch">slac460f-dumpdb.patch</a></li>
+</ul>
+<p>Updated for <code>slac460g</code> by Tamas Tevesz:</p>
+<ul>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460g-dumpdb.patch">slac460g-dumpdb.patch</a></li>
+</ul>
+<a name="patch_460a"></a>
+<h2 id="slac460a-linux-patches-obsolete">slac460a Linux patches (obsolete)</h2>
+<p><strong>Note:</strong> the following patches correspond to an older release of the MSP430.DLL library.</p>
+<p><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460-linux-patches-20111216.tar.gz">This patch series</a> modifies the MSP430.DLL source package from Texas Instruments so that it can be compiled and used on Linux systems.</p>
+<p>To build, you will first need the following tools and libraries:</p>
+<ul>
+<li>g++</li>
+<li>make</li>
+<li>quilt</li>
+<li>libboost (including development headers)</li>
+</ul>
+<p>Obtain the archive (<a href="http://www-s.ti.com/sc/techzip/slac460.zip">slac460.zip</a>) from <a href="http://processors.wiki.ti.com/index.php/MSP_Debug_Stack">http://processors.wiki.ti.com/index.php/MSP_Debug_Stack</a>.</p>
+<p>Unpack and patch the sources:</p>
+<pre><code>unzip slac460.zip
+tar xvfz /path/to/slac460-linux-patches-YYYYMMDD.tar.gz
+cd MSP430.DLLv3_OS_Package
+quilt push -a</code></pre>
+<p>Then build with "make". This will take a while, and you'll be left 
+with a binary file named "libmsp430.so". You can either copy it to 
+/usr/lib (or any other directory in your loader path) or specify the 
+path of the containing directory by prepending the mspdebug command line
+ with an appropriate value of LD_LIBRARY_PATH like so:</p>
+<pre><code>LD_LIBRARY_PATH=/path/to/MSP430.DLLv3_OS_Package mspdebug ...</code></pre>
+<p>After plugging in FET running V3 firmware, you should end up with a 
+device file called /dev/ttyACM0 or similar. Connect to it as follows:</p>
+<pre><code>mspdebug tilib -d /dev/ttyACM0</code></pre>
+<p>Note that the library requires a matching version of firmware, and 
+may need to update your FET firmware. By default, this won't happen, and
+ you'll instead see an error message. If you need to update your FET 
+firmware, use the following command-line option:</p>
+<pre><code>mspdebug tilib -d /dev/ttyACM0 --allow-fw-update</code></pre>
+<p>Note that you may see the following error when you run for the first time:</p>
+<pre><code>MSP430_Initialize: /dev/ttyACM0
+firmware system error 8004</code></pre>
+<p>If this happens, just press Ctrl+\ to kill mspdebug and try again.</p>
+<h3 id="license-for-patches">License for patches</h3>
+<p>Copyright 2011 Daniel Beer &lt;<script type="text/javascript">
+<!--
+h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#100;&#108;&#98;&#x65;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><a href="mailto:dlbeer@gmail.com"><code>dlbeer@gmail.com</code></a><noscript>&#100;&#108;&#98;&#x65;&#x65;&#114;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript>&gt;. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are 
+met:</p>
+<ol style="list-style-type: decimal">
+<li><p>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</p></li>
+<li><p>Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the 
+documentation and/or other materials provided with the distribution.</p></li>
+</ol>
+<p>THIS SOFTWARE IS PROVIDED BY <copyright holder=""> ''AS IS'' AND ANY 
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <copyright holder=""> OR 
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</copyright></copyright></p>
+<a name="fet_firmware"></a>
+<h2 id="v3-fet-firmware-upgradedowngrade">V3 FET firmware upgrade/downgrade</h2>
+<p>In order to use the new MSP430 library, your FET needs to be running 
+V3 firmware. The following instructions outline a procedure for 
+upgrading and downgrading the firmware using mspdebug. Before you start,
+ you'll need the following:</p>
+<ul>
+<li>The libmsp430.so binary, built as explained above.</li>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/Uifv3Updater-1_00_00_00.zip">Uifv3Updater-1_00_00_00.zip</a> -- a package from TI containing upgrade/downgrade program images.</li>
+<li>The latest git version of mspdebug (at least commit <code>82ec966d5e377a66d7d904067cc227d65dccdd01</code>).</li>
+<li>A V2 FET firmware image, if you don't already have one and are attempting to downgrade from V3.</li>
+</ul>
+<p>The V3 firmware image provides a CDC-ACM class interface, whereas the
+ V2 image appears as a generic TI3410 serial adapter. In the following 
+instructions, it's assumed that devices running V2 firmware appear as <code>/dev/ttyUSB0</code> and devices running V3 firmware appear as <code>/dev/ttyACM0</code>. You may have to adjust these names to suit your system.</p>
+<p>Before you start, unpack the upgrade/downgrade program package. This 
+package contains two TI Text files, which are referred to in the 
+following instructions:</p>
+<ul>
+<li><code>Uifv3Updater.txt</code></li>
+<li><code>Uifv3Downgrader.txt</code></li>
+</ul>
+<h3 id="upgrade-procedure">Upgrade procedure</h3>
+<p>First, it's recommended to read out a copy of your current firmware 
+in case you need to downgrade again. This can be done using the <code>uif-bsl</code> driver:</p>
+<pre><code>$ mspdebug uif-bsl -d /dev/ttyUSB0 "hexout 0x2500 0xdb00 old-v2-firmware.hex"
+MSPDebug version 0.18 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2011 Daniel Beer &lt;dlbeer@gmail.com&gt;
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Device ID: 0xf16c
+BSL version is 1.61
+Reading 4096 bytes from 0x2500...
+Reading 4096 bytes from 0x3500...
+Reading 4096 bytes from 0x4500...
+Reading 4096 bytes from 0x5500...
+Reading 4096 bytes from 0x6500...
+Reading 4096 bytes from 0x7500...
+Reading 4096 bytes from 0x8500...
+Reading 4096 bytes from 0x9500...
+Reading 4096 bytes from 0xa500...
+Reading 4096 bytes from 0xb500...
+Reading 4096 bytes from 0xc500...
+Reading 4096 bytes from 0xd500...
+Reading 4096 bytes from 0xe500...
+Reading 2816 bytes from 0xf500...</code></pre>
+<p>Next, you need to upload the V3 upgrader image:</p>
+<pre><code>$ mspdebug/mspdebug uif-bsl -d /dev/ttyUSB0 "prog Uifv3Updater.txt"
+MSPDebug version 0.18 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2011 Daniel Beer &lt;dlbeer@gmail.com&gt;
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Device ID: 0xf16c
+BSL version is 1.61
+Erasing...
+Programming...
+Writing 4096 bytes to 2500...
+Writing 4096 bytes to 3500...
+Writing 4096 bytes to 4500...
+Writing 3374 bytes to 5500...
+Writing    2 bytes to f7f0...
+Writing    2 bytes to f7fe...
+bsl: failed on command 0x3b (addr = 0x0000, len = 0x0000)</code></pre>
+<p>The final error is normal behaviour. At this point, your FET should reboot itself and reappear as <code>/dev/ttyACM0</code>. You're now ready to flash the latest library-matched firmware version:</p>
+<pre><code>$ mspdebug tilib -d /dev/ttyACM0 --allow-fw-update
+MSPDebug version 0.18 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2011 Daniel Beer &lt;dlbeer@gmail.com&gt;
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+MSP430_Initialize: /dev/ttyACM0
+FET firmware update is required.
+Starting firmware update (this may take some time)...
+Initializing bootloader...
+Erasing firmware...
+Programming new firmware...
+Done, finishing...
+Initializing bootloader...
+Erasing firmware...
+Programming new firmware...
+     0 percent done
+    25 percent done
+    50 percent done
+    75 percent done
+   100 percent done
+Done, finishing...
+Update complete
+MSP430_VCC: 3000 mV
+VCC  in[mV]: 3000
+VCC out[mV]: 2971
+VCC out[mV]: 2994
+MSP430_OpenDevice
+num of devices 1
+JtagID: 89
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+MSP430_GetFoundDevice
+Device: MSP430F2274 (id = 0x001c)
+2 breakpoints available
+MSP430_EEM_Init
+
+Available commands:
+    =         delbreak  gdb       load      opt       reset     simio
+    alias     dis       help      locka     prog      run       step
+    break     erase     hexout    md        read      set       sym
+    cgraph    exit      isearch   mw        regs      setbreak
+
+Available options:
+    color           gdb_loop        iradix
+    fet_block_size  gdbc_xfer_size  quiet
+
+Type "help &lt;topic&gt;" for more information.
+Press Ctrl+D to quit.
+
+(mspdebug)</code></pre>
+<p>If you get to this point, you're done -- you now have a fully functional V3 FET.</p>
+<h3 id="downgrade-procedure">Downgrade procedure</h3>
+<p>If you have a V3 FET, and you want to return to using V2 firmware, 
+you'll first need to ensure that you have a V2 firmware image ready to 
+program. To start the procedure, you first need to flash and run the 
+downgrader program on the V3 FET:</p>
+<pre><code>$ mspdebug tilib -d /dev/ttyACM0 --require-fw-update Uifv3Downgrader.txt
+MSPDebug version 0.18 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2011 Daniel Beer &lt;dlbeer@gmail.com&gt;
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+MSP430_Initialize: /dev/ttyACM0
+Updating firmware using Uifv3Downgrader.txt
+Starting firmware update (this may take some time)...
+Initializing bootloader...
+Erasing firmware...
+Programming new firmware...
+     0 percent done
+    50 percent done
+   100 percent done
+Done, finishing...</code></pre>
+<p>At this point, your FET may stop responding, and MSPDebug will hang. 
+Kill it with either Ctrl+\, or by killing the process from another 
+terminal. Replug the FET, and it should now appear as <code>/dev/ttyUSB0</code>. However, the LEDs won't light up, because there's no valid firmware image. Flash your old V2 firmware image using the <code>uif-bsl</code> driver:</p>
+<pre><code>$ mspdebug uif-bsl -d /dev/ttyUSB0 "prog old-v2-firmware.txt"
+MSPDebug version 0.18 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2011 Daniel Beer &lt;dlbeer@gmail.com&gt;
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+bsl: couldn't read bootloader transition acknowledgement
+bsl: warning: FET firmware not responding
+Device ID: 0xf16c
+BSL version is 1.61
+Erasing...
+Programming...
+Writing 4096 bytes to 2500...
+Writing 4096 bytes to 3500...
+Writing 4096 bytes to 4500...
+Writing 4096 bytes to 5500...
+Writing 4096 bytes to 6500...
+Writing 4096 bytes to 7500...
+Writing 4096 bytes to 8500...
+Writing 4096 bytes to 9500...
+Writing 4096 bytes to a500...
+Writing 4096 bytes to b500...
+Writing 4096 bytes to c500...
+Writing 4096 bytes to d500...
+Writing 4096 bytes to e500...
+Writing  304 bytes to f500...
+Writing 1488 bytes to f7e0...
+Writing   32 bytes to ffe0...</code></pre>
+<p>Note that there will be an initial delay while the driver attempts to
+ wake up the non-existent FET firmware. After a few seconds, the warning
+ message will appear and it'll proceed.</p>
+<p>After this command, the FET will restart and the LEDs will come on. 
+You should then be able to use it again as a V2 device via the <code>uif</code> driver.</p>
+<h2 id="database-dump-patch">Database dump patch</h2>
+<ul>
+<li><a href="http://dlbeer.co.nz/mspdebug/downloads/slac460f-dumpdb.patch">slac460f-dumpdb.patch</a></li>
+</ul>
+<p>The patch linked above is to be applied to slac460f.zip. It causes a 
+second binary, called "dumpdb", to be built. This binary dumps the chip 
+database used by MSPDebug's <code>fet3</code> driver.</p>
+<p>You don't need this patch unless you're modifying MSPDebug in some way.</p>
+</div>
+
+
+
+</body></html>
+<!-- Page design by Anusha Beer -->

@@ -1,0 +1,108 @@
+body {
+    border: 0px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    max-width: 1000px;
+
+    font-family: 'Droid Serif', serif;
+    font-size: 14px;
+}
+
+#top {
+    border-bottom: 2px solid #007280;
+    width: auto;
+    height: 100px;
+    margin-top: 30px;
+}
+
+#logo {
+    width: auto;
+    float: left;
+}
+
+#navigation {
+    width: auto;
+    text-align: right;
+    padding: 10px;
+    padding-top: 40px;
+}
+
+#navigation > a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #00005a;
+}
+
+#content {
+    width: auto;
+    margin-top: 30px;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    color: #00005a;
+}
+
+h1 { font-size: 28px; }
+h2 { font-size: 21px; }
+h3 { font-size: 16px; }
+
+p.caption {
+    font-size: 0.9em;
+    margin-bottom: 0px;
+}
+
+code, pre {
+    font-size: 14px;
+    font-family: 'Droid Sans Mono', monospace;
+}
+
+div.figure > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.figure, pre {
+    border: 1px solid #00005a;
+    background: #f0f0f0;
+    width: 90%;
+    padding: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+/* Syntax highlighting */
+code > span.kw, code > span.dt {
+    font-weight: bold;
+    color: #a00000;
+}
+
+code > span.ot {
+    color: #a00000;
+}
+
+code > span.co {
+    color: #0000a0;
+}
+
+li > a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #00005a;
+}
+
+#image_box {
+    float: right;
+}
+
+#image_box > img {
+    display: block;
+    margin: 10px;
+    border: 1px solid #007280;
+}
