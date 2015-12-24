@@ -4,7 +4,7 @@
 //  May 2011
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
-#include "Config.h"
+#include "config.h"
 
 int TaskPointer;
 int TStatePointer[8];
@@ -13,6 +13,28 @@ int main()
 {
 int i;
 
+    /* Hold the watchdog */
+    WDTCTL = WDTPW + WDTHOLD;
+
+    /* Set P1.0 direction to output */
+    P3DIR |= BIT7;
+
+    /* Set P1.0 output high */
+    P3OUT |= BIT7;
+
+    bool bStayInLoop;
+    bStayInLoop = true;
+
+    while ( bStayInLoop ) 
+    {
+        /* Wait for 200000 cycles */
+        __delay_cycles(200000);
+        
+        /* Toggle P1.0 output */
+        P3OUT ^= BIT7;
+    }
+
+ 
 // Basic Clock Control Registers
 //DCOCTL = DCO_CONF + MOD_CONF;
 DCOCTL = CALDCO_16MHZ;  
@@ -115,6 +137,7 @@ TBCTL |= TB_MC_CONF;
 //Application Specific Initialization
 AppInit();
 
+ 
 __bis_SR_register(GIE);                     // Enable all Interrupts
 while (1)
   {
@@ -162,8 +185,12 @@ while (1)
 
 }
 
-#pragma vector=TIMERA0_VECTOR
-__interrupt void TimerA0(void)
+static void
+__attribute__((__interrupt__(TIMER0_A0_VECTOR)))
+TimerA0 (void)
+
+//#pragma vector=TIMERA0_VECTOR
+//__interrupt void TimerA0(void)
 {
   if (UARTMode)
     {

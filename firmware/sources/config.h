@@ -4,11 +4,10 @@
 //  May 2011
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
-#include <msp430f2616.h>
+#include <msp430.h>
 #include "main.h"
 #include "AppDef.h"
-#include "COMM.h"
-#include "WaveForms.h"
+#include "comm.h"
 
 //***********************************************************************************
 // Internal Time References                                                         *

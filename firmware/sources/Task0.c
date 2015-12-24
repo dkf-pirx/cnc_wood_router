@@ -4,7 +4,7 @@
 //  May 2011
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
-#include "Config.h"
+#include "config.h"
 
 bool HighResolutionMode, UARTMode;
 bool MS_Direction;
@@ -27,6 +27,13 @@ unsigned int StepCounter, AccelSteps, DecelSteps, AtSpeedSteps, MoveStepsState;
 
 void Task0(void)
 {
+  int *MyPointer;
+  int Address;
+  int Data;
+  char BData;
+  char * MyPtr;
+
+  
 if (MessageComplete)
     {
       SerialOutBuffer[0] = FIRMWARE_REVISION;
@@ -288,8 +295,6 @@ if (MessageComplete)
         
 // Read Memory [Opcode = 0xE0 ] [ Address Hi ] [ Address Lo ] [ Not Used ] [ Not Used ] [ Not Used ]
       case (READ_MEM):
-       int * MyPointer;
-       int Address;
 
        Address = (SerialBuffer[1]*256 + SerialBuffer[2]);
        MyPointer = (int *) Address;
@@ -298,7 +303,6 @@ if (MessageComplete)
       break;
 // Write Memory [Opcode = 0xE1 ] [ Address Hi ] [ Address Lo ] [ Data Hi ] [ Data Lo ] [ Not Used ]
       case (WRITE_WMEM):
-        int Data;
 
         Address = (SerialBuffer[1]*256 + SerialBuffer[2]);
         Data = (SerialBuffer[3]*256 + SerialBuffer[4]);
@@ -308,8 +312,6 @@ if (MessageComplete)
 
 // Write Byte Memory [Opcode = 0xE2 ] [ Address ] [ Address Lo ] [ Data ] [Not Used ] [ Not Used ]
       case (WRITE_BMEM):
-        char BData;
-        char * MyPtr;
 
         Address = (SerialBuffer[1]*256 + SerialBuffer[2]);
         BData = SerialBuffer[3];

@@ -7,6 +7,8 @@
 //***********************************************************************************
 // App Extern Globals                                                               *
 //***********************************************************************************
+#include <stdbool.h>
+
 extern unsigned int StepPeriod;
 extern unsigned int SCurveAccelSpeed, SCurveDecelSpeed;
 extern unsigned int AccelRate, AccelRateChange, StartStepperSpeed, DesiredStepperSpeed;

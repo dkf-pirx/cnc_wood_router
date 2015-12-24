@@ -4,7 +4,7 @@
 //  May 2011
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
-#include "Config.h"
+#include "config.h"
 
 char SerialPointer;
 char SerialBuffer[SERIAL_BUFFER_LENGTH];
@@ -13,8 +13,12 @@ char SerialOutPointer;
 bool MessageComplete;
 int  CommTimeOut;
 
-#pragma vector=USCIAB0TX_VECTOR
-__interrupt void USCIAB0_Transmit(void)
+static void
+__attribute__((__interrupt__(USCIAB0TX_VECTOR)))
+USCIAB0_Transmit (void)
+
+//#pragma vector=USCIAB0TX_VECTOR
+//__interrupt void USCIAB0_Transmit(void)
 {
 SerialOutPointer += 1;
 UCA0TXBUF = SerialOutBuffer[SerialOutPointer];
@@ -24,8 +28,11 @@ if (SerialOutPointer == SERIAL_OUT_LENGTH - 1)
     }
 }
 
-#pragma vector=USCIAB0RX_VECTOR
-__interrupt void USCIAB0_Receive(void)
+static void
+__attribute__((__interrupt__(USCIAB0RX_VECTOR)))
+USCIAB0_Receive (void)
+//#pragma vector=USCIAB0RX_VECTOR
+//__interrupt void USCIAB0_Receive(void)
 {
 SerialBuffer[SerialPointer] = UCA0RXBUF;
 SerialPointer += 1;

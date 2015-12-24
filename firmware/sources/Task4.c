@@ -4,18 +4,9 @@
 //  May 2011
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
-#include "Config.h"
+#include "config.h"
 
-void Task7(void)
+void Task4(void)
 {
-StatusLED += 1;
-if (!StatusLED)
-    {
-    P3OUT ^= StatusLEDPin;
-    }
-if (CommTimeOut > 200)
-    {
-    CommTimeOut = 201;
-    SerialPointer = 0;
-    }
+
 }

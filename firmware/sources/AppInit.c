@@ -4,7 +4,7 @@
 //  May 2011
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
-#include "Config.h"
+#include "config.h"
 
 void AppInit(void)
 {
@@ -103,14 +103,15 @@ else
   }
 
 //Micro present or HiZ
-if (!(P1IN & MCU_MODE))
+if ( !( P1IN & MCU_MODE ) )
   {//MCU is HiZ All GPIO Configured as Inputs and MCU completely disabled
-  P1DIR = 0;
-  P2DIR = 0;
-  P3DIR = 0;
-  P4DIR = 0;
-  P5DIR = 0;
-  P6DIR = 0;
-  _BIC_SR(LPM4);      //MCU is completely disabled. Only NMI available.
+    P1DIR = 0;
+    P2DIR = 0;
+    P3DIR = 0;
+    P4DIR = 0;
+    P5DIR = 0;
+    P6DIR = 0;
+    //  _BIC_SR(LPM4);      //MCU is completely disabled. Only NMI available.
+    __bic_SR_register( LPM4_bits );   //MCU is completely disabled. Only NMI available.
   }
 }

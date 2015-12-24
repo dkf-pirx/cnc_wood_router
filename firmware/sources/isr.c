@@ -5,7 +5,8 @@
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
 
-#include "Config.h"
+#include "config.h"
+#include "WaveForms.h"
 
 int DebugVar;
 
@@ -30,50 +31,74 @@ int DebugVar;
 #define NMI_VECTOR          (30 * 2u) 0xFFFC Non-maskable
 #define RESET_VECTOR        (31 * 2u) 0xFFFE Reset [Highest Priority]*/
 
-#pragma vector=DAC12_VECTOR
-__interrupt void DigitaltoAnalogConverter(void)
+static void
+__attribute__((__interrupt__(DAC12_VECTOR)))
+DigitalToAnalogConverter (void)
+//#pragma vector=DAC12_VECTOR
+//__interrupt void DigitaltoAnalogConverter(void)
 {
 
 }
 
-#pragma vector=DMA_VECTOR
-__interrupt void DigitalToAnalog_DMA(void)
+static void
+__attribute__((__interrupt__(DMA_VECTOR)))
+DigitalToAnalog_DMA (void)
+//#pragma vector=DMA_VECTOR
+//__interrupt void DigitalToAnalog_DMA(void)
 {
 
 }
 
-#pragma vector=USCIAB1TX_VECTOR
-__interrupt void USCIAB1_Transmit(void)
+static void
+__attribute__((__interrupt__(USCIAB1TX_VECTOR)))
+USCIAB1_Transmit (void)
+//#pragma vector=USCIAB1TX_VECTOR
+//__interrupt void USCIAB1_Transmit(void)
 {
 
 }
 
-#pragma vector=USCIAB1RX_VECTOR
-__interrupt void USCIAB1_Receive(void)
+static void
+__attribute__((__interrupt__(USCIAB1RX_VECTOR)))
+USCIAB1_Receive (void)
+//#pragma vector=USCIAB1RX_VECTOR
+//__interrupt void USCIAB1_Receive(void)
 {
 
 }
 
-#pragma vector=PORT1_VECTOR
-__interrupt void PORT1_Change(void)
+static void
+__attribute__((__interrupt__(PORT1_VECTOR)))
+Port1_Change (void)
+//#pragma vector=PORT1_VECTOR
+//__interrupt void PORT1_Change(void)
 {
 
 }
 
-#pragma vector=PORT2_VECTOR
-__interrupt void Port2_Change(void)
+static void
+__attribute__((__interrupt__(PORT2_VECTOR)))
+Port2_Change (void)
+//#pragma vector=PORT2_VECTOR
+//__interrupt void Port2_Change(void)
 {
 
 }
 
-#pragma vector=ADC12_VECTOR
-__interrupt void AnalogToDigitalConverter(void)
+static void
+__attribute__((__interrupt__(ADC12_VECTOR)))
+AnalogToDigitalConverter (void)
+//#pragma vector=ADC12_VECTOR
+//__interrupt void AnalogToDigitalConverter(void)
 {
 
 }
 
-#pragma vector=TIMERA1_VECTOR
-__interrupt void TimerA1(void)
+static void
+__attribute__((__interrupt__(TIMERA1_VECTOR)))
+TimerA1 (void)
+//#pragma vector=TIMERA1_VECTOR
+//__interrupt void TimerA1(void)
 {
   
 //******************************************************************************
@@ -113,20 +138,29 @@ __interrupt void TimerA1(void)
     }
 }
 
-#pragma vector=WDT_VECTOR
-__interrupt void Watchdog_Timer(void)
+static void
+__attribute__((__interrupt__(WDT_VECTOR)))
+Watchdog_Timer (void)
+//#pragma vector=WDT_VECTOR
+//__interrupt void Watchdog_Timer(void)
 {
 
 }
 
-#pragma vector=COMPARATORA_VECTOR
-__interrupt void ComparatorA(void)
+static void
+__attribute__((__interrupt__(COMPARATORA_VECTOR)))
+ComparatorA (void)
+//#pragma vector=COMPARATORA_VECTOR
+//__interrupt void ComparatorA(void)
 {
 
 }
 
-#pragma vector=TIMERB1_VECTOR
-__interrupt void TimerB1(void)
+static void
+__attribute__((__interrupt__(TIMERB1_VECTOR)))
+TimerB1 (void)
+//#pragma vector=TIMERB1_VECTOR
+//__interrupt void TimerB1(void)
 {
 switch (TBIV)
 {
@@ -311,14 +345,20 @@ case TBIFG_SET:
 }
 }
 
-#pragma vector=TIMERB0_VECTOR
-__interrupt void TimerB0(void)
+static void
+__attribute__((__interrupt__(TIMERB0_VECTOR)))
+TimerB0 (void)
+//#pragma vector=TIMERB0_VECTOR
+//__interrupt void TimerB0(void)
 {
   
 }
 
-#pragma vector=NMI_VECTOR
-__interrupt void NonMaskableInterrupt(void)
+ static void
+__attribute__((__interrupt__(NMI_VECTOR)))
+NonMaskableInterrupt (void)
+//#pragma vector=NMI_VECTOR
+//__interrupt void NonMaskableInterrupt(void)
 {
 
 }
