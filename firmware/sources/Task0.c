@@ -41,7 +41,7 @@ if (MessageComplete)
       SerialOutBuffer[2] = 0;
       switch(OPCODE)
       {
-// Write GPIO Data [ OPCODE = 3 ] [ PHASE A GPIO ] [ PHASE B GPIO ] [ Not Used ] [ Not Used ]
+// Write GPIO Data [ OPCODE = 0x00 ] [ PHASE A GPIO ] [ PHASE B GPIO ] [ Not Used ] [ Not Used ]
 // PHASE X GPIO DATA = PHASExI0/PHASExI1/PHASExI2/PHASExI3/PHASExI4/PHASEx/PHASExDECAY/PHASExENABLE        
       case (WRITE_GPIO):
             

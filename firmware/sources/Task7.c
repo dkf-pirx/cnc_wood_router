@@ -8,14 +8,15 @@
 
 void Task7(void)
 {
-StatusLED += 1;
-if ( !StatusLED )
-    {
-      P3OUT ^= StatusLEDPin;
-    }
-if (CommTimeOut > 200)
-    {
-      CommTimeOut = 201;
-      SerialPointer = 0;
-    }
+  StatusLED += 1;
+  if ( !StatusLED )
+  {
+    P3OUT ^= StatusLEDPin;
+  }
+  
+  if (CommTimeOut > 200)
+  {
+    CommTimeOut = 201;
+    SerialPointer = 0;
+  }
 }

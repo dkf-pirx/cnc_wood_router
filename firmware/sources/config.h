@@ -4,6 +4,7 @@
 //  May 2011
 //  Built with IAR Embedded Workbench Version: 5.1
 //******************************************************************************
+#include <stdbool.h>
 #include <msp430.h>
 #include "main.h"
 #include "AppDef.h"
@@ -255,7 +256,7 @@
 
 #define     UCSWRST_DIS     (0x00)
 #define     UCSWRST_EN      (0X01)
-#define     UCSWRSTEN       UCSWRST_DIS
+#define     UCSWRSTEN       UCSWRST_EN
 
 //Modulation Control Register
 

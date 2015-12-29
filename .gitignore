@@ -30,3 +30,9 @@
 # Editor backup files
 *~
 *.*~
+
+# Others
+*.user
+build-ctrl_gui*
+
+

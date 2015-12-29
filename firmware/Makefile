@@ -16,11 +16,14 @@ _OBJ = main.o AppInit.o comm.o isr.o Task0.o Task1.o Task2.o Task3.o Task4.o Tas
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SRC)/%.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS) -l sources
+	$(CC) -c -o $@ $< $(CFLAGS) -l sources  -O0 -ggdb -Wa,-ahldn -gdwarf-2 -g3
 
 
-all: $(OBJ)
-	$(CC) -o cnc.out $^ $(CFLAGS) $(LDFLAGS)
+debug: $(OBJ)
+	$(CC) -o cnc.out $^ $(CFLAGS) $(LDFLAGS) -O0 -ggdb -Wa,-ahldn -gdwarf-2 -g3
+
+release: $(OBJ)
+	$(CC) -o cnc.out $^ $(CFLAGS) $(LDFLAGS) -O3
 
 
 .PHONY: clean

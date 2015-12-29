@@ -16,15 +16,14 @@ int  CommTimeOut;
 static void
 __attribute__((__interrupt__(USCIAB0TX_VECTOR)))
 USCIAB0_Transmit (void)
-
 //#pragma vector=USCIAB0TX_VECTOR
 //__interrupt void USCIAB0_Transmit(void)
 {
-SerialOutPointer += 1;
-UCA0TXBUF = SerialOutBuffer[SerialOutPointer];
-if (SerialOutPointer == SERIAL_OUT_LENGTH - 1)
+  SerialOutPointer += 1;
+  UCA0TXBUF = SerialOutBuffer[SerialOutPointer];
+  if ( SerialOutPointer == SERIAL_OUT_LENGTH - 1 )
     {
-    IE2 &= ~UCA0TXIE;
+      IE2 &= ~UCA0TXIE;
     }
 }
 
@@ -34,12 +33,12 @@ USCIAB0_Receive (void)
 //#pragma vector=USCIAB0RX_VECTOR
 //__interrupt void USCIAB0_Receive(void)
 {
-SerialBuffer[SerialPointer] = UCA0RXBUF;
-SerialPointer += 1;
-CommTimeOut = 0;
-if (SerialPointer == SERIAL_BUFFER_LENGTH)
+  SerialBuffer[SerialPointer] = UCA0RXBUF;
+  SerialPointer += 1;
+  CommTimeOut = 0;
+  if (SerialPointer == SERIAL_BUFFER_LENGTH)
     {
-    SerialPointer = 0;
-    MessageComplete = true;
+      SerialPointer = 0;
+      MessageComplete = true;
     }
 }
