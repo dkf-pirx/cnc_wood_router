@@ -97,7 +97,7 @@ void Task1(void)
     
 //******************************************************************************
 // S Curve Acceleration Increase
-// Changes the Acceleration Rate by increasing it until the SCurveAccelSpeed is met.
+// Changes the Acceleration Rate by increasing it until the  SCurveAccelSpeed is met.
 //******************************************************************************    
       case (S_CURVE_ACCELI):
     if (tmpAccelTimeBase > 0)

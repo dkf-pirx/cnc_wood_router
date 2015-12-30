@@ -70,14 +70,28 @@ bool DriverComm::Connect( )
     return returnError;
 }
 
-bool DriverComm::Start( )
+bool DriverComm::ConfigureStepper(quint16 ui16StartSpeed, quint16 ui16NominalSpeed)
+{
+    QByteArray  configCmd( 5, 0x0 );
+    configCmd[0] = 0x11;
+    configCmd[1] = ui16StartSpeed >> 8;
+    configCmd[2] = ui16StartSpeed & 0x00FF;
+    configCmd[3] = ui16NominalSpeed >> 8;
+    configCmd[4] = ui16NominalSpeed & 0x00FF;
+
+    m_pCommPort->write( configCmd );
+
+return false;
+}
+
+bool DriverComm::Start( quint8 ui8Configuration, quint8 ui8AccelRate, quint8 ui8TimeBase_ms, quint8 ui8AccelChange )
 {
     QByteArray  startCmd( 5, 0x0 );
     startCmd[0] = 0x12;
-    startCmd[1] = 0xC0;
-    startCmd[2] = 0x32;
-    startCmd[3] = 0x01;
-    startCmd[4] = 0x05;
+    startCmd[1] = ui8Configuration;
+    startCmd[2] = ui8AccelRate;
+    startCmd[3] = ui8TimeBase_ms;
+    startCmd[4] = ui8AccelChange;
 
     m_pCommPort->write( startCmd );
 

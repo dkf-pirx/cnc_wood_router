@@ -22,7 +22,8 @@ public:
     // return false if device connected to the stepper motor driver successful.
     bool    Connect( );
 
-    bool    Start( );
+    bool    ConfigureStepper( quint16 ui16StartSpeed, quint16 ui16NominalSpeed );
+    bool    Start(quint8 ui8Configuration, quint8 ui8AccelRate, quint8 ui8TimeBase_ms, quint8 ui8AccelChange );
     bool    Stop( );
 
 private:

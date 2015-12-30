@@ -19,13 +19,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_connectButton_clicked();
-
-    void on_startButton_clicked();
-
-    void on_stopButton_clicked();
-
-    void on_pushButton_clicked();
+    void on_buttonConnect_clicked( );
+    void on_buttonStart_clicked( );
+    void on_buttonStop_clicked( );
+    void on_buttonCommSettings_clicked( );
 
 signals:
     void    connectButtonClicked( void );
@@ -35,7 +32,6 @@ signals:
 
 private:
     Ui::MainWindow*     m_pui;
-
     DriverComm*         m_pCncComm;
 
 };
